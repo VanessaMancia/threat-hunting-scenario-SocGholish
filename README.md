@@ -9,11 +9,14 @@
 - Windows 10 Virtual Machines (Microsoft Azure)
 - EDR Platform: Microsoft Defender for Endpoint
 - Kusto Query Language (KQL)
-- Tor Browser
+- Fake SocGholish download 
 
 ##  Scenario
 
-Management suspects that some employees may be using TOR browsers to bypass network security controls because recent network logs show unusual encrypted traffic patterns and connections to known TOR entry nodes. Additionally, there have been anonymous reports of employees discussing ways to access restricted sites during work hours. The goal is to detect any TOR usage and analyze related security incidents to mitigate potential risks. If any use of TOR is found, notify management.
+Management has received threat intelligence reports warning that multiple partner organizations in the same industry were recently compromised via SocGholish malware delivered through fake browser update pop-ups on legitimate but compromised websites. Additionally, the organization’s web proxy logs show that some employees recently visited websites flagged by threat feeds as having served SocGholish payloads.
+
+The goal of this threat hunt is to proactively detect any possible SocGholish infections that may have occurred through these fake update lures, to identify any PowerShell loader execution, and to validate whether any systems have established C2 communications with known SocGholish infrastructure. If any SocGholish activity is identified, promptly isolate affected endpoints and notify management.
+
 
 ### High-Level TOR-Related IoC Discovery Plan
 
