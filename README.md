@@ -20,9 +20,9 @@ The goal of this threat hunt is to proactively detect any possible SocGholish in
 
 ### High-Level TOR-Related IoC Discovery Plan
 
-- **Check `DeviceFileEvents`** for any `tor(.exe)` or `firefox(.exe)` file events.
+- **Check `DeviceFileEvents`** for any `chrome_update_fake.exe` file events.
 - **Check `DeviceProcessEvents`** for any signs of installation or usage.
-- **Check `DeviceNetworkEvents`** for any signs of outgoing connections over known TOR ports.
+- **Check `DeviceNetworkEvents`** for any signs of outgoing connections to a C2 server.
 
 ---
 
