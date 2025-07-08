@@ -45,35 +45,37 @@ DeviceFileEvents
 
 ### 2. Searched the `DeviceProcessEvents` Table
 
-Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.0.1.exe". Based on the logs returned, at `2024-11-08T22:16:47.4484567Z`, an employee on the "threat-hunt-lab" device ran the file `tor-browser-windows-x86_64-portable-14.0.1.exe` from their Downloads folder, using a command that triggered a silent installation.
+Shortly after renaming, multiple FileDeleted events were captured for this file. This may indicate that the user or malware attempted to remove forensic artifacts after execution. The repeated deletion pattern aligns with known anti-forensics or cleanup behavior to hide traces of a malicious loader. All events were initiated from an internal session using IP 192.168.0.140, suggesting local or remote session activity on the device.
+
+Given these findings, additional hunting was performed to search for encoded PowerShell activity and any outbound network connections potentially associated with this suspicious file execution.
 
 **Query used to locate event:**
 
 ```kql
 
 DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe"  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine
+| where FileName contains "chrome_update_fake"
+| order by Timestamp desc   
+| project Timestamp, DeviceName, ActionType, FileName, FileOriginUrl, FileOriginReferrerUrl, InitatingProcessRemoteSessionIP
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b07ac4b4-9cb3-4834-8fac-9f5f29709d78">
+<img width="1212" alt="image" src="https://github.com/user-attachments/assets/ca6db098-1f9b-4047-b4d9-227a8fa01c81">
 
 ---
 
 ### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
 
-Searched for any indication that user "employee" actually opened the TOR browser. There was evidence that they did open it at `2024-11-08T22:17:21.6357935Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
+During the hunt, analysis of DeviceProcessEvents on nessa-windows showed three encoded PowerShell commands executed under the same user account. This suggests that the suspicious file may have launched hidden scripts as part of a potential malware infection. Encoded PowerShell is rarely used by typical users, so this activity should be investigated further to confirm its purpose and assess potential malicious behavior.
 
 **Query used to locate events:**
 
 ```kql
 DeviceProcessEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")  
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine  
+| where DeviceName == "nessa-windows"
+| where ProcessCommandLine has "-enc"
+| project Timestamp, DeviceName, ActionType, FileName, FolderPath, ProcessCommandLine, AccountName, AccountDomain
 | order by Timestamp desc
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/b13707ae-8c2d-4081-a381-2b521d3a0d8f">
+<img width="1212" alt="image" src="https://github.com/user-attachments/assets/4ac3e8e0-27e7-475b-b617-1c25378c35dc">
 
 ---
 
