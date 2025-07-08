@@ -13,7 +13,7 @@
 
 Management has received threat intelligence reports warning that multiple partner organizations in the same industry were recently compromised via SocGholish malware delivered through fake browser update pop-ups on legitimate but compromised websites. Additionally, the organization’s web proxy logs show that some employees recently visited websites flagged by threat feeds as having served SocGholish payloads.
 
-The goal of this threat hunt is to proactively detect any possible SocGholish infections that may have occurred through these fake update lures, to identify any PowerShell loader execution, and to validate whether any systems have established C2 communications with known SocGholish infrastructure. If any SocGholish activity is identified, promptly isolate affected endpoints and notify management.
+The goal of this threat hunt is to proactively detect any possible SocGholish infections that may have occurred through these fake update lures, to identify any PowerShell loader execution, and to validate whether any systems have established C2 communications with known SocGholish infrastructure. If any SocGholish activity is identified, please immediately isolate affected endpoints and notify management.
 
 
 ### High-Level TOR-Related IoC Discovery Plan
@@ -43,7 +43,7 @@ DeviceFileEvents
 
 ---
 
-### 2. Searched the `DeviceProcessEvents` Table
+### 2. Searched the `DeviceFileEvents` Table continued...
 
 Shortly after renaming, multiple FileDeleted events were captured for this file. This may indicate that the user or malware attempted to remove forensic artifacts after execution. The repeated deletion pattern aligns with known anti-forensics or cleanup behavior to hide traces of a malicious loader. All events were initiated from an internal session using IP 192.168.0.140, suggesting local or remote session activity on the device.
 
@@ -53,10 +53,10 @@ Given these findings, additional hunting was performed to search for encoded Pow
 
 ```kql
 
-DeviceProcessEvents  
+DeviceFileEvents  
 | where FileName contains "chrome_update_fake"
 | order by Timestamp desc   
-| project Timestamp, DeviceName, ActionType, FileName, FileOriginUrl, FileOriginReferrerUrl, InitatingProcessRemoteSessionIP
+| project Timestamp, DeviceName, ActionType, FileName, FileOriginUrl, FileOriginReferrerUrl, InitiatingProcessRemoteSessionIP
 ```
 <img width="1212" alt="image" src="https://github.com/user-attachments/assets/ca6db098-1f9b-4047-b4d9-227a8fa01c81">
 
