@@ -91,8 +91,9 @@ DeviceNetworkEvents
 | where InitiatingProcessFileName =~ "powershell.exe"
 | project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessAccountName, RemoteIP, RemotePort, RemoteUrl
 | order by Timestamp desc
+| take 10
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/62bfcc0d-5a76-4316-a410-72a7c9008a70">
+<img width="1212" alt="image" src="https://github.com/user-attachments/assets/98b7fd32-877d-42f4-b89c-1a4a9b330b8a">
 
 ---
 
