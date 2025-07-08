@@ -34,14 +34,12 @@ Confirming that the alert was a true positive, we searched the DeviceFileEvents 
 
 ```kql
 DeviceFileEvents  
-| where DeviceName == "threat-hunt-lab"  
-| where InitiatingProcessAccountName == "employee"  
-| where FileName contains "tor"  
-| where Timestamp >= datetime(2024-11-08T22:14:48.6065231Z)  
-| order by Timestamp desc  
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
+| where DeviceName == "nessa-windows"   
+| where FileName contains "fake"  
+| where ActionType contains "rename"
+| project Timestamp, DeviceName, ActionType, FileName, FileOriginReferrerUrl, InitiatingProcessAccountName, InitiatingProcessRemoteSessionIP
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/71402e84-8767-44f8-908c-1805be31122d">
+<img width="1212" alt="image" src="https://github.com/user-attachments/assets/55850959-2ba4-41ff-88d5-15131ef66b19">
 
 ---
 
