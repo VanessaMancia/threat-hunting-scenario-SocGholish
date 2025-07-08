@@ -58,7 +58,7 @@ DeviceFileEvents
 | order by Timestamp desc   
 | project Timestamp, DeviceName, ActionType, FileName, FileOriginUrl, FileOriginReferrerUrl, InitiatingProcessRemoteSessionIP
 ```
-<img width="1212" alt="image" src="https://github.com/user-attachments/assets/ca6db098-1f9b-4047-b4d9-227a8fa01c81">
+<img width="1212" alt="image" src="https://github.com/user-attachments/assets/93052198-0793-49d4-97e0-ceb616ecdd9d">
 
 ---
 
