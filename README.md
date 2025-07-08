@@ -88,7 +88,6 @@ It was confirmed that the simulated fake update scenario successfully triggered 
 ```kql
 DeviceNetworkEvents  
 | where DeviceName == "nessa-windows"  
-| where InitiatingProcessAccountName != "system"  
 | where InitiatingProcessFileName =~ "powershell.exe"
 | project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessAccountName, RemoteIP, RemotePort, RemoteUrl
 | order by Timestamp desc
