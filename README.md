@@ -99,61 +99,59 @@ DeviceNetworkEvents
 
 ## Chronological Event Timeline 
 
-### 1. File Download - TOR Installer
+### 1. File Renaming - Disguised Payload
 
-- **Timestamp:** `2024-11-08T22:14:48.6065231Z`
-- **Event:** The user "employee" downloaded a file named `tor-browser-windows-x86_64-portable-14.0.1.exe` to the Downloads folder.
-- **Action:** File download detected.
+- **Timestamp:** `2025-06-30T17:19:42Z`
+- **Event:** The legitimate VLC installer `vlc-3.0.21-win64.exe` was renamed to `chrome_update_fake.exe` on the workstation nessa-windows. This mirrors SocGholish techniques, where a fake browser update is
+- **Action:** File renamed
 - **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
 
-### 2. Process Execution - TOR Browser Installation
-
-- **Timestamp:** `2024-11-08T22:16:47.4484567Z`
-- **Event:** The user "employee" executed the file `tor-browser-windows-x86_64-portable-14.0.1.exe` in silent mode, initiating a background installation of the TOR Browser.
-- **Action:** Process creation detected.
-- **Command:** `tor-browser-windows-x86_64-portable-14.0.1.exe /S`
-- **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
-
-### 3. Process Execution - TOR Browser Launch
-
-- **Timestamp:** `2024-11-08T22:17:21.6357935Z`
-- **Event:** User "employee" opened the TOR browser. Subsequent processes associated with TOR browser, such as `firefox.exe` and `tor.exe`, were also created, indicating that the browser launched successfully.
-- **Action:** Process creation of TOR browser-related executables detected.
-- **File Path:** `C:\Users\employee\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
-
-### 4. Network Connection - TOR Network
-
-- **Timestamp:** `2024-11-08T22:18:01.1246358Z`
-- **Event:** A network connection to IP `176.198.159.33` on port `9001` by user "employee" was established using `tor.exe`, confirming TOR browser network activity.
-- **Action:** Connection success.
-- **Process:** `tor.exe`
-- **File Path:** `c:\users\employee\desktop\tor browser\browser\torbrowser\tor\tor.exe`
-
-### 5. Additional Network Connections - TOR Browser Activity
+### 2. File Deletion - Cleanup Activity
 
 - **Timestamps:**
-  - `2024-11-08T22:18:08Z` - Connected to `194.164.169.85` on port `443`.
-  - `2024-11-08T22:18:16Z` - Local connection to `127.0.0.1` on port `9150`.
-- **Event:** Additional TOR network connections were established, indicating ongoing activity by user "employee" through the TOR browser.
-- **Action:** Multiple successful connections detected.
+- `2025-06-30T17:20:18Z`
+- `2025-06-30T17:20:21Z`
+- `2025-06-30T17:27:30Z`
 
-### 6. File Creation - TOR Shopping List
+- **Event:** The file `chrome_update_fake.exe` was deleted multiple times from the same Downloads folder. This pattern suggests the user or malware may have attempted to remove forensic evidence after execution.
+- **Action:** FileDeleted event detected (3 occurrences).
+- **Command:** `tor-browser-windows-x86_64-portable-14.0.1.exe /S`
+- **File Path:** `C:\Users\BigMOMMA\Downloads\chrome_update_fake.exe`
 
-- **Timestamp:** `2024-11-08T22:27:19.7259964Z`
-- **Event:** The user "employee" created a file named `tor-shopping-list.txt` on the desktop, potentially indicating a list or notes related to their TOR browser activities.
-- **Action:** File creation detected.
-- **File Path:** `C:\Users\employee\Desktop\tor-shopping-list.txt`
+### 3. PowerShell Execution - Encoded Commands
+
+- **Timestamp:** 
+- `2025-06-30T17:22:00Z`
+- `2025-06-30T17:23:09Z`
+- `2025-06-30T17:23:36Z`
+- **Event:** Encoded PowerShell commands were executed by the user bigmomma on device nessa-windows. This is commonly seen in SocGholish, where initial loaders drop encoded scripts to evade detection.
+- **Action:** Process creation detected (Base64-encoded PowerShell).
+- **Command Example:
+- `powershell.exe' -enc UwBlAGMAdQByAGU=`
+- **File Path:** `C:\Windows\System32\WindowsPowerShell\v1.0`
+
+### 4. Outbound Network Connection - Simulated C2 Callback
+
+- **Timestamp:** `2025-06-30T17:26:46Z`
+- **Event:** PowerShell initiated an outbound HTTP connection to example.com over port 80. This simulated a command-and-control (C2) check-in, mimicking real SocGholish behavior.
+- **Action:** Network connection to external IP 23.192.228.80 established.
+- **Process:** `powershell.exe`
+- **Remote URL:** `wxample.com`
 
 ---
 
 ## Summary
 
-The user "employee" on the "threat-hunt-lab" device initiated and completed the installation of the TOR browser. They proceeded to launch the browser, establish connections within the TOR network, and created various files related to TOR on their desktop, including a file named `tor-shopping-list.txt`. This sequence of activities indicates that the user actively installed, configured, and used the TOR browser, likely for anonymous browsing purposes, with possible documentation in the form of the "shopping list" file.
+On June 30, 2025, a simulated SocGholish infection was successfully emulated on the device nessa-windows. The chain began with the renaming of a legitimate VLC installer to chrome_update_fake.exe, consistent with real-world SocGholish delivery mechanisms that impersonate browser updates.
+
+Shortly after, the file was deleted multiple times—an indicator of anti-forensic behavior. The user bigmomma also ran three encoded PowerShell commands, suggesting post-download execution of hidden scripts.
+
+The simulation included a test outbound connection from powershell.exe to example.com, replicating the callback behavior of SocGholish malware attempting to reach a C2 server. No further suspicious network behavior was identified beyond this controlled scenario.
 
 ---
 
 ## Response Taken
 
-TOR usage was confirmed on the endpoint `threat-hunt-lab` by the user `employee`. The device was isolated, and the user's direct manager was notified.
+SocGholish-like activity was confirmed on the endpoint `nessa-windows.` The device was isolated, and management was notified.
 
 ---
