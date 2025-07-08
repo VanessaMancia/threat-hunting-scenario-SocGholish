@@ -102,7 +102,7 @@ DeviceNetworkEvents
 ### 1. File Renaming - Disguised Payload
 
 - **Timestamp:** `2025-06-30T17:19:42Z`
-- **Event:** The legitimate VLC installer `vlc-3.0.21-win64.exe` was renamed to `chrome_update_fake.exe` on the workstation nessa-windows. This mirrors SocGholish techniques, where a fake browser update is
+- **Event:** The legitimate VLC installer `vlc-3.0.21-win64.exe` was renamed to `chrome_update_fake.exe` on the workstation nessa-windows. This mirrors SocGholish techniques, where a fake browser update is used to lure users.
 - **Action:** File renamed
 - **File Path:** `C:\Users\employee\Downloads\tor-browser-windows-x86_64-portable-14.0.1.exe`
 
