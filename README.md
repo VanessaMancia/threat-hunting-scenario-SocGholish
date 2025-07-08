@@ -142,11 +142,15 @@ DeviceNetworkEvents
 
 ## Summary
 
-On June 30, 2025, a simulated SocGholish infection was successfully emulated on the device nessa-windows. The chain began with the renaming of a legitimate VLC installer to chrome_update_fake.exe, consistent with real-world SocGholish delivery mechanisms that impersonate browser updates.
+On June 30, 2025, suspicious activity was detected on the endpoint nessa-windows under the user account bigmomma. The investigation confirmed a true positive involving a malicious file disguised as a browser update — a technique associated with the SocGholish malware family.
 
-Shortly after, the file was deleted multiple times—an indicator of anti-forensic behavior. The user bigmomma also ran three encoded PowerShell commands, suggesting post-download execution of hidden scripts.
+Initial telemetry showed that a legitimate VLC installer was renamed to chrome_update_fake.exe, a common tactic used by SocGholish to trick users into executing malware under the guise of a software update. Shortly after the file appeared in the system, multiple deletion events were observed, suggesting deliberate cleanup attempts, either by the user or the malware, to remove evidence of the infection.
 
-The simulation included a test outbound connection from powershell.exe to example.com, replicating the callback behavior of SocGholish malware attempting to reach a C2 server. No further suspicious network behavior was identified beyond this controlled scenario.
+Subsequent analysis of DeviceProcessEvents revealed three instances of encoded PowerShell execution, a strong indicator of post-exploitation activity and script-based malware behavior. PowerShell was used to run base64-encoded commands, which are rarely observed in normal user behavior and often signal the use of fileless malware loaders.
+
+Finally, DeviceNetworkEvents confirmed that the compromised host initiated an outbound connection over HTTP to example.com, resolving to IP 23.192.228.80. This aligns with command-and-control (C2) callback behavior commonly seen in SocGholish infections. No other suspicious connections were observed beyond this point, though additional HTTPS activity was logged and later deemed non-malicious.
+
+These combined findings strongly indicate that the user executed a SocGholish-style payload, resulting in malicious PowerShell execution and a potential C2 check-in. The infection was partially obscured through file deletion activity, making detection dependent on endpoint telemetry and behavioral hunting.
 
 ---
 
