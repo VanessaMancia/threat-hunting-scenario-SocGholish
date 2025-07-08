@@ -62,7 +62,7 @@ DeviceFileEvents
 
 ---
 
-### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
+### 3. Searched the `DeviceProcessEvents` Table for encoded PowerShell commands executed
 
 During the hunt, analysis of DeviceProcessEvents on nessa-windows showed three encoded PowerShell commands executed under the same user account. This suggests that the suspicious file may have launched hidden scripts as part of a potential malware infection. Encoded PowerShell is rarely used by typical users, so this activity should be investigated further to confirm its purpose and assess potential malicious behavior.
 
@@ -79,7 +79,7 @@ DeviceProcessEvents
 
 ---
 
-### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
+### 4. Searched the `DeviceNetworkEvents` Table for PowerShell-based network Connections
 
 It was confirmed that the simulated fake update scenario successfully triggered a PowerShell-based network connection to example.com over port 80. This behavior matches what would be expected of a SocGholish loader attempting a command-and-control check-in. No additional suspicious C2 traffic was detected beyond this controlled test event. Two other outbound HTTPS connections from the system account were identified as related to lab infrastructure and are not considered suspicious.
 
